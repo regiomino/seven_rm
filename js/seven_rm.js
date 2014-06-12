@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
- 
+  
 	$("a.editablefield").live("click", function() {
     var parent = $(this).parent();
     $(this).replaceWith("<input class='" + $(this).attr("class") + "' type='text' size='3' value='" + $(this).attr("data-value") + "'>"); //closing angle bracket added
@@ -15,29 +15,34 @@ jQuery(document).ready(function ($) {
                 //trigger ajax and pass new stock value and nid
 		
 		data = new Object,
-		callback_url = Drupal.settings.basePath + 'updatestock';
+		callback_url = Drupal.settings.basePath + 'updateofferdata';
 		
 		var allclasses = $(this).attr("class").split(" ");
 		var index;
 		for (index = 0; index < allclasses.length; ++index) {
 			if(allclasses[index].substring(0, 3) == 'nid') data['nid'] = allclasses[index].substring(3);
+			if(allclasses[index].substring(0, 6) == 'field_') data['field'] = allclasses[index].substring(0);
 		}
-		data['stock'] = $(this).val();  
+		data['amount'] = $(this).val();
 		
 		$.ajax({
 			url: callback_url,
 			type: 'POST',
 			data: data,
-			success: function (data, textStatus, jqXHR) {
+			success: function (returnData, textStatus, jqXHR) {
+				console.log(returnData);
+				$("td.nid" + data['nid']).toggleClass('nid' + data['nid'] + ' nid' + returnData).html(returnData);
+				$("a.nid" + data['nid']).toggleClass('nid' + data['nid'] + ' nid' + returnData);
+				$("div.form-item-offers-" + data['nid']).toggleClass('form-item-offers-' + data['nid'] + ' form-item-offers-' + returnData);
+				$("label[for='edit-offers-" + data['nid'] + "']").attr('for', 'edit-offers-' + returnData);
+				$("input[name='offers[" + data['nid'] + "]']").attr('name', 'offers[' + returnData + ']').attr('id', 'edit-offers-' + returnData).attr('value', returnData);
 			},
 			error: function (http) {
 			},
 			complete: function() {
-				console.log("complete");
-                                $parent.removeClass('loading');
+        $parent.removeClass('loading');
 			}
 		});
-		
   });
  
  
