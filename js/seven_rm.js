@@ -1,5 +1,41 @@
 jQuery(document).ready(function ($) {
  
+	$("a.editablefield").live("click", function() {
+    var parent = $(this).parent();
+    $(this).replaceWith("<input class='" + $(this).attr("class") + "' type='text' size='3' value='" + $(this).attr("data-value") + "'>"); //closing angle bracket added
+    parent.children(":text").focus();
+    return false;
+  });
+	$("td :text").live("blur", function() {
+    $(this).replaceWith("<a href='javascript:' class='" + $(this).attr("class") + "' data-value='" + $(this).val() + "'>" + $(this).val() + "</a>");
+		//trigger ajax and pass new stock value and nid
+		
+		data = new Object,
+		callback_url = Drupal.settings.basePath + 'updatestock';
+		
+		var allclasses = $(this).attr("class").split(" ");
+		var index;
+		for (index = 0; index < allclasses.length; ++index) {
+			if(allclasses[index].substring(0, 3) == 'nid') data['nid'] = allclasses[index].substring(3);
+		}
+		data['stock'] = $(this).val();  
+		
+		$.ajax({
+			url: callback_url,
+			type: 'POST',
+			data: data,
+			success: function (data, textStatus, jqXHR) {
+			},
+			error: function (http) {
+			},
+			complete: function() {
+				console.log("complete");
+			}
+		});
+		
+  });
+ 
+ 
        $(".sidepanel").tocify({
               selectors: "h1.section-title,h2.sub-title",
               'showAndHideOnScroll' : false,

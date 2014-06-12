@@ -114,8 +114,8 @@ echo render($form['form_token']);
                    
                     <div class="row">
                         <div class="sub-heading">
-                            <h2 class="sub-title"><span class="signpost"></span>Verkaufseinheit <span class="redstar">*</span></h2>
-                            <div class="description">Bitte wählen Sie eine Verkaufseinheit für dieses Produkt</div>
+                            <h2 class="sub-title"><span class="signpost"></span>Produkteinheit <span class="redstar">*</span></h2>
+                            <div class="description">Bitte wählen Sie eine Einheit für dieses Produkt</div>
                         </div>
                         <div class="sub-content">
                             <?php echo render($form['regiomino_offer_create']['priceinfo']['packingunit_first']); ?>
