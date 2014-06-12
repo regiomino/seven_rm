@@ -3,12 +3,16 @@ jQuery(document).ready(function ($) {
 	$("a.editablefield").live("click", function() {
     var parent = $(this).parent();
     $(this).replaceWith("<input class='" + $(this).attr("class") + "' type='text' size='3' value='" + $(this).attr("data-value") + "'>"); //closing angle bracket added
-    parent.children(":text").focus();
+    parent.children("input:text").focus();
     return false;
   });
-	$("td :text").live("blur", function() {
-    $(this).replaceWith("<a href='javascript:' class='" + $(this).attr("class") + "' data-value='" + $(this).val() + "'>" + $(this).val() + "</a>");
-		//trigger ajax and pass new stock value and nid
+	$("td input.editablefield").live("blur", function() {
+            var $parent =  $(this).parent();
+            $parent.addClass('loading');	
+             
+             $(this).replaceWith("<a href='javascript:' class='" + $(this).attr("class") + "' data-value='" + $(this).val() + "'>" + $(this).val() + "</a>");
+                var $that = $(this);
+                //trigger ajax and pass new stock value and nid
 		
 		data = new Object,
 		callback_url = Drupal.settings.basePath + 'updatestock';
@@ -30,6 +34,7 @@ jQuery(document).ready(function ($) {
 			},
 			complete: function() {
 				console.log("complete");
+                                $parent.removeClass('loading');
 			}
 		});
 		
