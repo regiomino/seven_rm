@@ -32,7 +32,7 @@ jQuery(document).ready(function ($) {
 			success: function (returnData, textStatus, jqXHR) {
 				console.log(returnData);
 				$("td.nid" + data['nid']).toggleClass('nid' + data['nid'] + ' nid' + returnData).html(returnData);
-				$("a.nid" + data['nid']).toggleClass('nid' + data['nid'] + ' nid' + returnData);
+				$("a.nid" + data['nid']).toggleClass('nid' + data['nid'] + ' nid' + returnData).attr('href', '/admin/offers/edit/' + returnData + '?destination=admin/offers');
 				$("div.form-item-offers-" + data['nid']).toggleClass('form-item-offers-' + data['nid'] + ' form-item-offers-' + returnData);
 				$("label[for='edit-offers-" + data['nid'] + "']").attr('for', 'edit-offers-' + returnData);
 				$("input[name='offers[" + data['nid'] + "]']").attr('name', 'offers[' + returnData + ']').attr('id', 'edit-offers-' + returnData).attr('value', returnData);
