@@ -88,6 +88,65 @@ jQuery(document).ready(function ($) {
 		$('#offer-node-form #edit-field-price .field-suffix').html('<span class="regio">Regio</span><span class="mino">mino</span> Preis: ' + resulting.toFixed(2).replace('.', ',') + ' &euro; inkl. Liefergeb&uuml;hr (<a id="pricedesctrigger" title="Regiomino erh&ouml;ht Ihren Produktpreis automatisch um &uuml;ber den Aufschlag die kostenlose Lieferung zu finanzieren." href="#">Was ist das?</a>)');
 		console.log(resulting.toFixed(2).replace('.', ','));
 	});
-        
+	
+	$('#edit-tradingprice-1-netrevenue--2').keyup(function () {
+		$.fn.updateTradingpriceFields(1);
+	});
+	$('#edit-tradingprice-2-netrevenue--2').keyup(function () {
+		$.fn.updateTradingpriceFields(2);
+	});
+	$('#edit-tradingprice-3-netrevenue--2').keyup(function () {
+		$.fn.updateTradingpriceFields(3);
+	});
+	$('#edit-tradingprice-4-netrevenue--2').keyup(function () {
+		$.fn.updateTradingpriceFields(4);
+	});
+	$('#edit-tradingprice-5-netrevenue--2').keyup(function () {
+		$.fn.updateTradingpriceFields(5);
+	});
+	
+	$('#edit-vat--2').change(function () {
+		for(var i = 1; i<=5; i++) {
+			$.fn.updateTradingpriceFields(i);
+		}
+	});
+	
+	$('#edit-tradingprice-1-customertype--2').change(function () {
+		$.fn.updateTradingpriceFields(1);
+	});
+	$('#edit-tradingprice-2-customertype--2').change(function () {
+		$.fn.updateTradingpriceFields(2);
+	});
+	$('#edit-tradingprice-3-customertype--2').change(function () {
+		$.fn.updateTradingpriceFields(3);
+	});
+	$('#edit-tradingprice-4-customertype--2').change(function () {
+		$.fn.updateTradingpriceFields(4);
+	});
+	$('#edit-tradingprice-5-customertype--2').change(function () {
+		$.fn.updateTradingpriceFields(5);
+	});
+      
+  $.fn.updateTradingpriceFields = function(row) {
+		var customertype = $('#edit-tradingprice-' + row + '-customertype--2').val();
+		var vatperc = $('#edit-vat--2').val();
+		var inputval = $('#edit-tradingprice-' + row + '-netrevenue--2').val();
+		var floatval = inputval.replace(',', '.');
+		var rmshipping = (+floatval * 0.1).toFixed(2);
+		if(customertype == 'commercial') {
+			var rmfee = (+floatval * 0.1).toFixed(2);
+		}
+		else {
+			var rmfee = (+floatval * 0.135).toFixed(2);
+		}
+		var rmlisting = (+floatval + +rmshipping + +rmfee).toFixed(2);
+		var vat = (+rmlisting * +vatperc / 100).toFixed(2);
+		var gross = (+rmlisting + +vat).toFixed(2);
+		$('#edit-tradingprice-' + row + '-shipping--2').val(rmshipping.replace('.', ','));
+		$('#edit-tradingprice-' + row + '-rmfee--2').val(rmfee.replace('.', ','));
+		$('#edit-tradingprice-' + row + '-listing--2').val(rmlisting.replace('.', ','));
+		$('#edit-tradingprice-' + row + '-vat--2').val(vat.replace('.', ','));
+		$('#edit-tradingprice-' + row + '-gross--2').val(gross.replace('.', ','));
+	}
       
 });
