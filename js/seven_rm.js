@@ -134,7 +134,7 @@ jQuery(document).ready(function ($) {
 		var floatval = inputval.replace(',', '.');
 		var rmshipping = (+floatval * 0.1).toFixed(2);
 		if(customertype == 'commercial') {
-			var rmfee = (+floatval * 0.1).toFixed(2);
+			var rmfee = (+floatval * 0).toFixed(2);
 		}
 		else {
 			var rmfee = (+floatval * 0.135).toFixed(2);
