@@ -19,6 +19,6 @@ project = "drupal"
 datestamp = "1365027012"
 
  
-scripts[] = js/jquery.tocify.js
-scripts[] = js/seven_rm.js
+#scripts[] = js/jquery.tocify.js
+#scripts[] = js/seven_rm.js
 

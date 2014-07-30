@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
   
-	$("a.editablefield").live("click", function() {
+/* 	$("a.editablefield").live("click", function() {
     var parent = $(this).parent();
     $(this).replaceWith("<input class='" + $(this).attr("class") + "' type='text' size='3' value='" + $(this).attr("data-value") + "'>"); //closing angle bracket added
     parent.children("input:text").focus();
@@ -12,7 +12,6 @@ jQuery(document).ready(function ($) {
              
              $(this).replaceWith("<a href='javascript:' class='" + $(this).attr("class") + "' data-value='" + $(this).val() + "'>" + $(this).val() + "</a>");
                 var $that = $(this);
-                //trigger ajax and pass new stock value and nid
 		
 		data = new Object,
 		callback_url = Drupal.settings.basePath + 'updateofferdata';
@@ -84,7 +83,6 @@ jQuery(document).ready(function ($) {
 		var inputval = $('#offer-node-form #edit-field-price #edit-field-price-und-0-value').val();
 		var floatval = inputval.replace(',', '.');
 		var resulting = Math.roundUpToFives((floatval * 1.1) * 2, 1) / 2;
-		/* var revenue = Math.round((resulting - (floatval* 10 / 100)) * Math.pow(10, 2)) / Math.pow(10, 2); */
 		$('#offer-node-form #edit-field-price .field-suffix').html('<span class="regio">Regio</span><span class="mino">mino</span> Preis: ' + resulting.toFixed(2).replace('.', ',') + ' &euro; inkl. Liefergeb&uuml;hr (<a id="pricedesctrigger" title="Regiomino erh&ouml;ht Ihren Produktpreis automatisch um &uuml;ber den Aufschlag die kostenlose Lieferung zu finanzieren." href="#">Was ist das?</a>)');
 		console.log(resulting.toFixed(2).replace('.', ','));
 	});
@@ -147,6 +145,6 @@ jQuery(document).ready(function ($) {
 		$('#edit-tradingprice-' + row + '-listing--2').val(rmlisting.replace('.', ','));
 		$('#edit-tradingprice-' + row + '-vat--2').val(vat.replace('.', ','));
 		$('#edit-tradingprice-' + row + '-gross--2').val(gross.replace('.', ','));
-	}
+	} */
       
 });
